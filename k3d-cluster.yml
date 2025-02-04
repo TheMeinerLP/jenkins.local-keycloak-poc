@@ -1,0 +1,14 @@
+
+apiVersion: k3d.io/v1alpha5 # this will change in the future as we make everything more stable
+kind: Simple # internally, we also have a Cluster config, which is not yet available externally
+metadata:
+  name: jenkins.local
+servers: 1 # same as `--servers 1`
+agents: 3 # same as `--agents 2`
+token: jenkins.local # same as `--token superSecretToken`
+volumes: # repeatable flags are represented as YAML lists
+  - volume: jenkins_local:/data
+ports:
+  - port: 8080:80 # same as `--port '8080:80@loadbalancer'`
+    nodeFilters:
+      - loadbalancer
